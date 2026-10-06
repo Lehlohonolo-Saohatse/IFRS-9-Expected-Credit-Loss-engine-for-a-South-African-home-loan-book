@@ -1,0 +1,49 @@
+{
+  "reporting_date": "2025-12",
+  "n_loans": 30000,
+  "n_open": 20939,
+  "total_ead": 24342880256.0,
+  "ecl_final": 289745832.45661366,
+  "coverage_pct": 1.1902693083543288,
+  "ecl_by_scenario": {
+    "base": 281055000.7585366,
+    "upside": 265028304.2285338,
+    "downside": 319709679.5097338
+  },
+  "weights": {
+    "base": 0.5,
+    "upside": 0.2,
+    "downside": 0.3
+  },
+  "stage_share": {
+    "1": 0.8285244107246399,
+    "2": 0.12001440674066544,
+    "3": 0.05146113783121109
+  },
+  "gini_test": {
+    "Hazard (Markov, macro-aware)": 0.6458736307585904,
+    "WoE scorecard (benchmark)": 0.6173731713959008,
+    "Gradient boosting (challenger)": 0.6173234503683664
+  },
+  "ks_test": {
+    "Hazard (Markov, macro-aware)": 0.4879499907885618,
+    "WoE scorecard (benchmark)": 0.4626685925550633,
+    "Gradient boosting (challenger)": 0.4661615188889602
+  },
+  "cure_backtest": {
+    "n": 1480,
+    "predicted_cure_rate": 0.2238739354118781,
+    "observed_cure_rate": 0.2445945945945946
+  },
+  "spearman_recovery": 0.8864698071268345,
+  "lgd_pred": 0.21571481436978357,
+  "lgd_real": 0.2138373866676337,
+  "backtest_pred_vs_real": 0.8189206926003371,
+  "lgd_samples": {
+    "cure": 1667,
+    "lgd": 971
+  },
+  "data_mode": "SYNTHETIC",
+  "macro_real_files": [],
+  "runtime_s": 75
+}

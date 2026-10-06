@@ -1,0 +1,77 @@
+# ---- IFRS 9 ECL engine: SA home-loan book (SYNTHETIC portfolio) ----
+seed: 20251231
+
+paths:
+  raw: data/raw
+  processed: data/processed
+  outputs: outputs
+  docs: docs
+
+portfolio:
+  n_loans: 30000
+  term_months: 240
+  first_orig: "2012-01"
+  last_orig: "2024-12"
+  obs_end: "2025-12"         # reporting date for ECL
+  smm_prepay: 0.004          # monthly single-mortality (prepayment) rate in the DGP, loans older than 6m
+
+# True default-generating process (DGP). The models never see these numbers;
+# validation checks whether they recover the DGP's structure.
+dgp:
+  b0: -6.35                  # baseline logit of monthly arrears entry
+  b_score: 0.55              # per -1 sd of bureau score
+  b_dti: 0.40                # per 0.08 of instalment/income above 0.25
+  b_cltv: 0.35               # per 0.10 of current LTV above 90%
+  b_self_emp: 0.35
+  b_contract: 0.45
+  b_seasoning: 0.60          # amplitude, hump peaking at 36 months
+  b_unemp: 0.30              # per 4pp unemployment above 30%
+  b_prime_shock: 0.25        # per 2pp rise in prime since origination (payment shock)
+  b_probation: 0.70          # re-default risk after a cure from default
+  covid_shock: 1.20          # additive logit shock, Apr-Sep 2020
+  frailty_sd: 0.12           # AR(1) systematic factor not explained by macro
+  frailty_rho: 0.90
+  # roll-rate parameters (base probabilities, moved by risk shift)
+  p_up_30: 0.35
+  p_cure_30: 0.45
+  p_up_60: 0.50
+  p_down_60: 0.15
+  p_cure_default: 0.03       # monthly, first 9 months in default
+  cure_window: 9
+  # recovery process
+  sale_exec_lag: [18, 30]    # months, sale in execution
+  vol_sale_share: 0.25
+  vol_sale_lag: [9, 15]
+  fsd_mean: 0.22             # forced-sale discount (sale in execution)
+  fsd_sd: 0.08
+  fsd_unemp_slope: 0.004     # extra discount per pp unemployment above 28%
+  vol_fsd_mean: 0.08
+  legal_cost: [0.04, 0.09]   # share of EAD
+  agent_cost: 0.05           # share of sale price
+
+splits:                      # by observation month
+  pd12_train_end: "2021-12"  # 12m labels known by end-2022 (12m embargo)
+  pd12_valid: ["2022-01", "2022-12"]
+  pd12_test: ["2023-01", "2024-12"]
+  hazard_train_end: "2022-12"
+  hazard_valid: ["2023-01", "2023-12"]
+  hazard_test: ["2024-01", "2025-12"]
+  lgd_train_end: "2022-12"   # by default month / resolution month
+
+staging:
+  backstop_dpd_state: 1      # 30+ dpd -> Stage 2
+  default_dpd_state: 3       # 90+ dpd -> Stage 3
+  probation_months: 12       # stay in Stage 3 after cure
+  sicr_pd_multiple: 2.5      # 12m PD now / 12m PD at origination
+  sicr_pd_absolute: 0.005    # and at least +0.5pp absolute
+
+ecl:
+  reporting_date: "2025-12"
+  max_horizon: 240
+  prepay_smm: 0.004          # prepayment assumption inside EAD/survival
+  stage3_sale_months: 12     # Stage 3: assumed months to sale for scenario HPI and discounting
+  scenario_weights: {base: 0.50, upside: 0.20, downside: 0.30}   # ILLUSTRATIVE
+  overlay:
+    name: "Municipal tariff / cost-of-living affordability overlay (illustrative)"
+    dti_threshold: 0.33
+    uplift: 0.10             # +10% ECL on Stage 1-2 loans above threshold

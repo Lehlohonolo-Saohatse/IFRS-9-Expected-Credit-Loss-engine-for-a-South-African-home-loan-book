@@ -1,0 +1,7 @@
+series,source,pulled,transformation,date_pulled
+repo,built-in SARB MPC decision table,typed in code,effective-month step series; VERIFY vs SARB,2026-10-06
+prime,derived,-,prime = repo + 3.5pp,2026-10-06
+cpi_yoy,built-in APPROXIMATE annual CPI,typed in code,interpolated; REPLACE with Stats SA P0141,2026-10-06
+gdp_yoy,built-in APPROXIMATE annual GDP,typed in code,interpolated; REPLACE with Stats SA P0441,2026-10-06
+unemployment,built-in APPROXIMATE QLFS rates,typed in code,"quarterly -> monthly, available 2m after quarter-end; REPLACE with Stats SA QLFS",2026-10-06
+hpi,assumption: HPI y/y = CPI y/y - 1pp,-,compounded monthly; replace with FNB/ABSA/BIS index if available,2026-10-06
