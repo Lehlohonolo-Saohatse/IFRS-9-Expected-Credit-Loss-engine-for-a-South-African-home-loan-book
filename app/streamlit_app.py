@@ -1,4 +1,4 @@
-"""Monitoring dashboard.  streamlit run app/streamlit_app.py"""
+"""Monitoring dashboard."""
 import json
 from pathlib import Path
 import numpy as np
