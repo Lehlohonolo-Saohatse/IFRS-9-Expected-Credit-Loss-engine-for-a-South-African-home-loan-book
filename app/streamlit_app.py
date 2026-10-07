@@ -8,7 +8,7 @@ import streamlit as st
 OUT = Path(__file__).resolve().parents[1] / "outputs"
 st.set_page_config(page_title="SA home-loan IFRS 9 ECL monitor", layout="wide")
 st.title("SA home-loan IFRS 9 ECL monitor")
-st.warning("SYNTHETIC portfolio: results show methodology, not real South African credit risk.")
+st.warning("SYNTHETIC portfolio: results show methodology, not real South African credit risk. By Lehlohonolo Saohatse")
 
 res = json.loads((OUT / "results.json").read_text())
 loans = pd.read_csv(OUT / "ecl_by_loan.csv.gz")
