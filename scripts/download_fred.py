@@ -1,4 +1,4 @@
-"""Run LOCALLY (needs internet):  python scripts/download_fred.py
+"""Run LOCALLY (but it needs internet🙂):  python scripts/download_fred.py
 Downloads SA series from FRED (no API key needed for the CSV endpoint) into data/raw/ in the
 `date,value` format that src/macro.py expects. Repo and prime must come from SARB (see README).
 Only the unemployment ID was verified when this was written; check the others on fred.stlouisfed.org
