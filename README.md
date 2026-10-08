@@ -4,7 +4,7 @@
 
 ---
 
-> ## ⚠️ Synthetic data
+> ## ⚠️ Synthetic data alert🙂
 > No public loan-level South African mortgage data exists, so the portfolio is **simulated with a known default and recovery process**
 > ([`src/generator.py`](src/generator.py), parameters in [`config.yaml`](config.yaml)). Macro inputs are real SA series **or flagged approximations**
 > ([`docs/data_lineage.csv`](docs/data_lineage.csv)). Results demonstrate **methodology, not real South African credit risk.**
